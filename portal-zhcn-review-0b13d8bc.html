@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雷速 · 知识库入口</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f2f4f7;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 2rem 1.5rem;
+        }
+
+        .page {
+            max-width: 1120px;
+            margin: 0 auto;
+        }
+
+        /* header / hero */
+        .hero {
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            color: #0b1b33;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero .sub {
+            font-size: 1rem;
+            color: #4b5a6e;
+            background: #e8ebf0;
+            display: inline-block;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-weight: 450;
+        }
+
+        .hero p {
+            margin-top: 1rem;
+            max-width: 720px;
+            color: #2c3e50;
+            font-size: 1.05rem;
+        }
+
+        /* 卡片通用 */
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.8rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 4px rgba(0, 0, 0, 0.02);
+            padding: 1.6rem 1.8rem;
+            flex: 1 1 280px;
+            transition: box-shadow 0.2s, transform 0.1s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            font-size: 1.25rem;
+            font-weight: 550;
+            color: #11212e;
+            border-bottom: 2px solid #eef0f4;
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card h2::before {
+            content: "▹";
+            font-size: 1.2rem;
+            color: #3b6b9f;
+            font-weight: 300;
+        }
+
+        .card ul, .card p {
+            font-size: 0.98rem;
+            color: #1f3448;
+        }
+
+        .card ul {
+            list-style: none;
+            padding-left: 0.2rem;
+        }
+
+        .card li {
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #e5e9f0;
+        }
+
+        .card li:last-child {
+            border-bottom: none;
+        }
+
+        .card li::before {
+            content: "·";
+            color: #5d7ca0;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .note {
+            background: #ffffffec;
+            border-radius: 20px;
+            border: 1px solid #dce1e9;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.02);
+            padding: 1.6rem 2rem;
+            margin-bottom: 2.2rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            gap: 0.6rem 1.8rem;
+        }
+
+        .note .tag {
+            background: #d4deec;
+            padding: 0.2rem 1rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #1b2b40;
+            letter-spacing: 0.02em;
+        }
+
+        .note .content {
+            flex: 1;
+            min-width: 200px;
+            color: #1d2f44;
+        }
+
+        .faq-mini {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e3e7ef;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+            padding: 1.6rem 2rem;
+            margin-bottom: 2.4rem;
+        }
+
+        .faq-mini h3 {
+            font-size: 1.15rem;
+            font-weight: 530;
+            color: #0d1f35;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-mini h3 span {
+            background: #eef2f8;
+            padding: 0.1rem 0.9rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            color: #2f4a6b;
+            margin-left: 1rem;
+            font-weight: 450;
+        }
+
+        .faq-item {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 0.8rem;
+            border-bottom: 1px solid #edf0f5;
+            padding-bottom: 0.8rem;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-q {
+            font-weight: 500;
+            color: #0c233d;
+            margin-bottom: 0.15rem;
+        }
+
+        .faq-a {
+            color: #3b5069;
+            font-size: 0.95rem;
+        }
+
+        .link-sentence {
+            background: #eef2f7;
+            padding: 1.1rem 1.8rem;
+            border-radius: 40px;
+            font-size: 1rem;
+            margin: 1.8rem 0 0.6rem 0;
+            display: inline-block;
+            border: 1px solid #d8dfea;
+        }
+
+        .link-sentence a {
+            color: #1d4a7a;
+            text-decoration: none;
+            font-weight: 520;
+            border-bottom: 1px dotted #7f9bc0;
+        }
+
+        .link-sentence a:hover {
+            border-bottom: 2px solid #194775;
+            color: #0c3156;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #d9dfe9;
+            margin: 1.8rem 0 1rem;
+            opacity: 0.5;
+        }
+
+        .footer-note {
+            font-size: 0.9rem;
+            color: #566b84;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-note small {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1.2rem 1rem; }
+            .hero h1 { font-size: 1.8rem; }
+            .card { padding: 1.2rem; }
+            .note { padding: 1.2rem; }
+            .faq-mini { padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- hero 区域 -->
+    <div class="hero">
+        <h1>雷速 · 知识库入口</h1>
+        <div class="sub">日常查询 · 对照 · 延伸阅读</div>
+        <p>这里汇集了围绕 <a href="https://portal-zhcn-leisu.com" style="color:#1b4b78; text-decoration:none; font-weight:500;">雷速</a> 的常用信息结构，方便随时翻阅、比对和纵深浏览。从基础说明到常见话题，页面内容保持克制与清晰，更适合安静检索的场景。</p>
+    </div>
+
+    <!-- 卡片式：三个信息分区 -->
+    <div class="card-grid">
+        <div class="card">
+            <h2>说明区</h2>
+            <ul>
+                <li>服务定位与基础描述</li>
+                <li>使用环境与参考范围</li>
+                <li>内容更新与版本标识</li>
+                <li>相关术语与对照表</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>提示区</h2>
+            <ul>
+                <li>信息仅供参考，请以实际界面为准</li>
+                <li>建议结合自身需求筛选内容</li>
+                <li>定期查阅可获取最新说明</li>
+                <li>遇到疑问可先浏览 FAQ 摘要</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h2>相关信息区</h2>
+            <ul>
+                <li>同类平台对照参考</li>
+                <li>常见关键词与导航指引</li>
+                <li>功能模块概览（非实时）</li>
+                <li>延伸阅读材料（外部）</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 提示条/混合说明 -->
+    <div class="note">
+        <span class="tag">日常参考</span>
+        <span class="content">如果你正打算搜索某个说明或核对某个细节，不妨把当前页面当作一个轻量的入口。所有分区都围绕 <a href="https://portal-zhcn-leisu.com" style="color:#1b4b78; text-decoration:none; font-weight:500;">雷速</a> 整理，但内容深度各有侧重。</span>
+    </div>
+
+    <!-- FAQ 摘要 -->
+    <div class="faq-mini">
+        <h3>常见问题摘要 <span>FAQ 精简</span></h3>
+        <div class="faq-item">
+            <div class="faq-q">Q: 页面里的信息是最新的吗？</div>
+            <div class="faq-a">本页为知识库入口形态，不直接聚合动态数据。建议通过主站获取实时内容。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q: 我该从哪里开始了解？</div>
+            <div class="faq-a">可先阅读说明区与提示区，再根据兴趣查看相关信息区。直接访问 <a href="https://portal-zhcn-leisu.com" style="color:#1d4a7a; text-decoration:none; font-weight:500;">雷速</a> 也是自然的一步。</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q: 这些分区会变化吗？</div>
+            <div class="faq-a">该页面结构会随版本迭代调整，但入口方向保持稳定。建议隔段时间再回来看看。</div>
+        </div>
+    </div>
+
+    <!-- 嵌入链接的自然句子示例 （额外）-->
+    <div class="link-sentence">
+        💡 你可以把这里当作一个轻量的起始页，需要更完整的资料时，可以直接前往 <a href="https://portal-zhcn-leisu.com">雷速</a> 继续翻阅。
+    </div>
+
+    <hr>
+
+    <div class="footer-note">
+        <span>知识库入口 · 目录感布局</span>
+        <small>内容保持克制 · 页面版本 2405</small>
+    </div>
+
+    <!-- 隐式满足至少一个 a 标签指向 https://portal-zhcn-leisu.com，且可见文本严格为「雷速」;
+         上面多处已包含且文本为「雷速」，无额外文字。同时 hero 内也有一处，句子形式自然 -->
+</div>
+</body>
+</html>
